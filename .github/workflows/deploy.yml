@@ -1,0 +1,29 @@
+name: Deploy Azure Resources
+
+on:
+  push:
+    branches:
+      - deploy-storage-workflow
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          auth-type: SERVICE_PRINCIPAL
+
+      - name: Deploy Bicep Template
+        uses: azure/arm-deploy@v1
+        with:
+          template: ./main.bicep
+          parameters: storageAccountName=myuniquestorage123
+          deploymentName: github-deploy
+          resourceGroupName: myRG
+          location: eastus
