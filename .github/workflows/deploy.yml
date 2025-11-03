@@ -24,6 +24,7 @@ jobs:
         with:
           template: ./main.bicep
           parameters: storageAccountName=myuniquestorage123
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           deploymentName: github-deploy
           resourceGroupName: myRG
-          location: eastus
+          
