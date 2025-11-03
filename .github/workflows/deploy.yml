@@ -1,4 +1,4 @@
-name: Deploy Azure Resources
+name: Deploy Storage Account
 
 on:
   push:
@@ -19,12 +19,12 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           auth-type: SERVICE_PRINCIPAL
 
-      - name: Deploy Bicep Template
+      - name: Deploy Bicep Template to Resource Group
         uses: azure/arm-deploy@v1
         with:
-          template: ./main.bicep
-          parameters: storageAccountName=myuniquestorage123
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          deploymentName: github-deploy
+          subscriptionId: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
           resourceGroupName: myRG
-          
+          template: ./main.bicep
+          parameters: storageAccountName=namanuniquestorage123
+          deploymentName: github-rg-deploy
+          deploymentMode: Incremental
