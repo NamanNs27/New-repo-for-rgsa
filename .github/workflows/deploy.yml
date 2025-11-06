@@ -1,3 +1,5 @@
+# This workflow deploys a storage account using Bicep
+
 name: Deploy Storage Account
 
 on:

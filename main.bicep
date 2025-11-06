@@ -1,6 +1,8 @@
 param location string = 'eastus'
 param storageAccountName string
 
+
+// Here I have Defined the storage account
 resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: storageAccountName
   location: location
