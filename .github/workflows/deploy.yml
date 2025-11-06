@@ -3,7 +3,7 @@ name: Deploy RG and Storage Account
 on:
   push:
     branches:
-      - deploy-storage-workflow  
+      - deploy-storage-workflow
 
 jobs:
   deploy:
@@ -19,13 +19,13 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           auth-type: SERVICE_PRINCIPAL
 
-      - name: Deploy Bicep Template at Subscription Scope
+      - name: Deploy Subscription-Level Bicep Template
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
           scope: subscription
           region: eastus  
-          template: ./main.bicep
+          template: ./main.bicep  
           parameters: |
             storageAccountName=namanuniquestorage123
             location=eastus
