@@ -32,7 +32,7 @@ jobs:
             storageAccountName=namanuniquestorage123
             location=eastus
             resourceGroupName=myRG
-          deploymentName: github-subsciption-deploy
+          deploymentName: github-subscription-deploy
           deploymentMode: Incremental
 
 
