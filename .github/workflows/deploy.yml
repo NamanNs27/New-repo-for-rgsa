@@ -25,8 +25,15 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
+          scope: subscription
           resourceGroupName: myRG
           template: ./main.bicep
-          parameters: storageAccountName=namanuniquestorage123
-          deploymentName: github-rg-deploy
+          parameters: |
+            storageAccountName=namanuniquestorage123
+            location=eastus
+            resourceGroupName=myRG
+          deploymentName: github-subsciption-deploy
           deploymentMode: Incremental
+
+
+         
