@@ -1,19 +1,23 @@
 targetScope = 'subscription'
 
-param location string = 'eastus'
+param rgName string
+param location string
 param storageAccountName string
-param resourceGroupName string = 'myRG'
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: resourceGroupName
+  name: rgName
   location: location
 }
 
-module storageModule './storage.bicep' = {
-  name: 'storageDeployment'
+resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+  name: storageAccountName
   scope: rg
-  params: {
-    location: location
-    storageAccountName: storageAccountName
+  location: location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    accessTier: 'Hot'
   }
 }

@@ -3,7 +3,7 @@ name: Deploy RG and Storage Account
 on:
   push:
     branches:
-      - deploy-storage-workflow
+      - main
 
 jobs:
   deploy:
@@ -11,24 +11,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          auth-type: SERVICE_PRINCIPAL
 
-      - name: Deploy Subscription-Level Bicep Template
+      - name: Deploy Bicep at Subscription Scope
         uses: azure/arm-deploy@v1
         with:
-          subscriptionId: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
           scope: subscription
-          region: eastus  
-          template: ./main.bicep  
-          parameters: |
-            storageAccountName=namanuniquestorage123
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          region: eastus
+          template: ./main.bicep
+          parameters: >
+            rgName=my-rg
             location=eastus
-            resourceGroupName=myRG
-          deploymentName: github-subscription-deploy
-          deploymentMode: Incremental
+            storageAccountName=mystorage${{ github.run_id }}
