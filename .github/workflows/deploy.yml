@@ -1,11 +1,9 @@
-# This workflow deploys a storage account using Bicep
-
-name: Deploy Storage Account
+name: Deploy RG and Storage Account
 
 on:
   push:
     branches:
-      - deploy-storage-workflow
+      - deploy-storage-workflow  
 
 jobs:
   deploy:
@@ -21,12 +19,12 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           auth-type: SERVICE_PRINCIPAL
 
-      - name: Deploy Bicep Template to Resource Group
+      - name: Deploy Bicep Template at Subscription Scope
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
           scope: subscription
-          resourceGroupName: myRG
+          region: eastus  
           template: ./main.bicep
           parameters: |
             storageAccountName=namanuniquestorage123
@@ -34,6 +32,3 @@ jobs:
             resourceGroupName=myRG
           deploymentName: github-subscription-deploy
           deploymentMode: Incremental
-
-
-         
