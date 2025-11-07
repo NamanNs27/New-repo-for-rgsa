@@ -12,6 +12,9 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 module storage './storage.bicep' = {
   name: 'deployStorage'
   scope: resourceGroup(rgName)
+  dependsOn: [
+    rg
+  ]
   params: {
     location: location
     storageAccountName: storageAccountName
