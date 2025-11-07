@@ -25,7 +25,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           region: eastus
           template: ./main.bicep
-          parameters: > #test
+          parameters: > #testffff
             rgName=my-rg
             location=eastus
             storageAccountName=mystorage${{ github.run_id }}
