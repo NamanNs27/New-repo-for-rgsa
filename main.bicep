@@ -9,15 +9,11 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 
-resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
-  name: storageAccountName
-  location: location
+module storage './storage.bicep' = {
+  name: 'deployStorage'
   scope: resourceGroup(rgName)
-  sku: {
-    name: 'Standard_LRS'
-  }
-  kind: 'StorageV2'
-  properties: {
-    accessTier: 'Hot'
+  params: {
+    location: location
+    storageAccountName: storageAccountName
   }
 }
