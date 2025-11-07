@@ -23,9 +23,10 @@ jobs:
         audience: api://AzureADTokenExchange
         auth-type: SERVICE_PRINCIPAL
 
-    - name: Deploy Bicep template
-      run: |
-        az deployment sub create \
-          --location "eastus" \
-          --template-file ./main.bicep \
-          --parameters ./parameters.json
+    - name: Deploy Bicep template using Azure ARM Deploy
+      uses: azure/arm-deploy@v1
+      with:
+        scope: subscription
+        region: eastus
+        template: ./main.bicep
+        parameters: ./parameters.json
