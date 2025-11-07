@@ -3,7 +3,7 @@ name: Deploy RG and Storage Account
 on:
   push:
     branches:
-      - main
+      - deploy-storage-workflow
 
 jobs:
   deploy:
