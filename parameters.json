@@ -1,0 +1,11 @@
+{
+  "rgName": {
+    "value": "naman-rg-01"
+  },
+  "location": {
+    "value": "eastus"
+  },
+  "storageAccountName": {
+    "value": "namanstorage123"
+  }
+}
